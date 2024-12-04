@@ -1,4 +1,4 @@
-# Mengaktifkan URL rewriting
+ # Mengaktifkan URL rewriting
 RewriteEngine On
 
 # Pastikan file atau direktori yang ada langsung diakses

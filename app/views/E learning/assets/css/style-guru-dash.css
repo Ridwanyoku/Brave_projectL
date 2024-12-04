@@ -1,0 +1,38 @@
+
+:root{
+    --base-clr: #11121a;
+    --hover-clr: #222533;
+    --line-clr: #42434a;
+    --text-clr: #ffffff;
+    --accent-clr: #5e63ff;
+    --secondary-clr: #b0b3c1;
+}
+
+svg.mobile-view-sidebar{
+    display: none;
+}
+
+.none {
+    display: none
+}
+
+@media(max-width: 768px){
+    header, .container, .siswa-content, footer {
+        max-width: 100%; 
+        margin: 0 auto;  
+    }
+
+    header {
+        max-width: 100%;
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    svg.mobile-view-sidebar{
+        display: block;
+    }
+
+    .none {
+        display: none
+    }
+}

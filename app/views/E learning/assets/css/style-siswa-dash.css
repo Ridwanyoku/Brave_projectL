@@ -1,0 +1,249 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root{
+    --base-clr: #11121a;
+    --hover-clr: #222533;
+    --line-clr: #42434a;
+    --text-clr: #ffffff;
+    --accent-clr: #5e63ff;
+    --secondary-clr: #b0b3c1;
+}
+
+header {
+    background-color: #5e63ff;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+section{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--hover-clr);
+    border: 1px solid var(--base-clr);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+svg.mobile-view-sidebar{
+    display: none;
+}
+
+.navbar{
+    grid-column: inherit;
+}
+
+.rotate svg:first-child{
+    transform: rotate(180deg);
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.search-input{
+    padding: 10px;
+    border: none;
+    outline: none;
+    width: 300px;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.form-search{
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.search-button{
+    padding: 10px 20px;
+    background-color: var(--accent-clr);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-input:focus{
+    outline: none;
+    border: 1px solid var(--accent-clr);
+}
+
+.container{
+    width: 100%;
+}
+
+/* Dashboard Content */
+.siswa-content{
+    padding: 1em;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.card-dash{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Card Styling */
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: auto;  
+    min-width: 200px; 
+    margin-bottom: 20px;
+    z-index: 1;
+}
+
+.card h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+.card p, .card ul {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    flex-grow: 1;
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.card ul li p a{
+    color: var(--secondary-clr);
+}
+
+.card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.card ul li {
+    margin-bottom: 5px;
+    color: var(--secondary-clr);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-link {
+    align-self: flex-start;
+    font-size: 14px;
+    color: #5e63ff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+    header, .container, .siswa-content, footer {
+        max-width: 100%; 
+        margin: 0 auto;  
+    }
+
+    header {
+        max-width: 100%;
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    svg.mobile-view-sidebar{
+        display: block;
+    }
+
+    .none {
+        display: none
+    }
+
+    .navbar{
+        grid-column: inherit;
+        margin-top: 4.8em;
+    }
+
+    /* Tata Letak Kontainer */
+    .siswa-content {
+        flex-direction: column;
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .card-dash {
+        grid-template-columns: repeat(1, 1fr); /* 1 kolom pada perangkat kecil */
+        gap: 15px;
+    }
+
+    /* Kartu */
+    .card {
+        padding: 15px;
+        height: auto;
+        max-width: 100%; /* Pastikan kartu tidak meluber */
+        min-width: 100%; /* Sesuaikan agar memenuhi kontainer */
+    }
+
+    .card h2 {
+        font-size: 18px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+
+    .profile-pic {
+        width: 60px;
+        height: 60px;
+    }
+
+    .card-link {
+        font-size: 12px;
+    }
+}

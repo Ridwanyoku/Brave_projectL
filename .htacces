@@ -1,0 +1,23 @@
+# Mengaktifkan URL rewriting
+RewriteEngine On
+
+# Pastikan file atau direktori yang ada langsung diakses
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Arahkan semua permintaan ke index.php
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Tambahan keamanan
+# Mencegah akses langsung ke file .env atau konfigurasi sensitif
+<FilesMatch "\.(env|ini|log|bak|config|sh|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Tambahkan header keamanan dasar
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>

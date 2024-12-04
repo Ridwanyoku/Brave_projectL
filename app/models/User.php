@@ -1,7 +1,5 @@
 <?php
-
 include 'db.php';
-
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -11,17 +9,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: User.php");
         exit();
     }
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Query untuk mencari user berdasarkan username
+    $query = "SELECT id, username, password, role FROM user WHERE username = ?";
+    $statement = $pdo->prepare($query);
+    $statement->execute([$username]);
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+    // Validasi user dan password
+    if ($user && password_verify($password, $user['password'])) {
+        // Login berhasil
+        if ($user['role'] === 'siswa') {
+            header('Location: siswa_dashboard.php');
+            exit();
+        } else if ($user['role'] === 'guru') {
+            header('Location: guru_dashboard.php');
+            exit();
+        } else {
+            $_SESSION['login_error'] = "Invalid user role.";
+            header("Location: User.php");
+            exit();
+        }
+    } else {
+        // Login gagal
+        $_SESSION['login_error'] = "Invalid username or password.";
+        header("Location: User.php");
+        exit();
+    }
 }
-
-$username = $_POST['username'];
-$password = $_POST['password'];
-
-
-$query = "SELECT id, password FROM user WHERE username = ?";
-$statement = $pdo->prepare($query);
-$statement->execute([$username]);
-$user = $statement->fetch(PDO::FETCH_ASSOC);
-
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +50,9 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
     <title>Document</title>
 </head>
 <body>
-    <form action="post">
+    <form action="User.php" method="POST">
         <input type="text" name = "username" placeholder = "username" required>
-        <input type="text" name="password " placeholder = "password" required>
+        <input type="text" name="password" placeholder = "password" required>
         <button type= "submit" name="Login">Login</button>
     </form>
 </body>

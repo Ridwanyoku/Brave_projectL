@@ -1,9 +1,9 @@
 <?php
 
 $host = 'localhost';
-$db = 'brave';
 $user = 'root';  
 $pass = '';
+$db = 'brave';
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {

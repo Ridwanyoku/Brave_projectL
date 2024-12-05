@@ -60,7 +60,7 @@ if(isset($_POST['Login'])) {
 
         if($_SESSION['role'] == 'siswa'){
             header("Location: siswa_dashboard.php");
-            
+
         }else if ($_SESSION['role'] =='guru'){
             header("Location: guru_dashboard.php");
         }

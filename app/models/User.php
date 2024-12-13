@@ -1,35 +1,53 @@
 <?php
-require 'db.php';
+
 session_start();
+include 'db.php'; // Pastikan file ini berisi koneksi database
 
-if(isset($_POST['Login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $role = "SELECT role FROM user WHERE username = '$username'";
-    $cek_role = mysqli_query($conn, $role);
-    $data_role = mysqli_fetch_assoc($cek_role);
-    
-    $sql = "SELECT * FROM  user WHERE username='$username' AND password='$password' ";
-    
-    $cek_user = mysqli_query($conn, $sql);
-    $data_user= mysqli_fetch_assoc($cek_user);
+if (isset($_POST['Login'])) {
+    // Ambil data dari form
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = $_POST['password']; // Jangan hash ulang, password_verify akan digunakan
 
-    if ($data_user && $data_role){
-        $_SESSION['Login'] = true;
-        $_SESSION['username'] = $username;
-        $_SESSION['role'] = $data_role['role'];
+    // Query untuk mendapatkan data pengguna
+    $sql = "SELECT * FROM user WHERE username = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
-        if($_SESSION['role'] == 'siswa'){
-            header("Location: siswa_dashboard.php");
+    if (mysqli_num_rows($result) > 0) {
+        $user = mysqli_fetch_assoc($result);
 
-        }else if ($_SESSION['role'] =='guru'){
-            header("Location: guru_dashboard.php");
+        // Verifikasi password
+        if (password_verify($password, $user['password'])) {
+            // Password benar, set session
+            $_SESSION['Login'] = true;
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role'];
+
+            // Arahkan ke dashboard berdasarkan role
+            if ($user['role'] == 'siswa') {
+                header("Location: siswa_dashboard.php");
+            } elseif ($user['role'] == 'guru') {
+                header("Location: guru_dashboard.php");
+            }
+            exit();
+        } else {
+            // Password salah
+            echo "Password salah!";
         }
-
+    } else {
+        // Username tidak ditemukan
+        echo "Username tidak ditemukan!";
     }
 
+    // Tutup statement dan koneksi
+    mysqli_stmt_close($stmt);
 }
+mysqli_close($conn);
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">

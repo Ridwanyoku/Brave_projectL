@@ -2,45 +2,6 @@
 require 'db.php';
 session_start();
 
-// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//     // Validasi input form
-//     if (empty($_POST['username']) || empty($_POST['password'])) {
-//         $_SESSION['login_error'] = "All fields are required.";
-//         header("Location: User.php");
-//         exit();
-//     }
-
-//     $username = $_POST['username'];
-//     $password = $_POST['password'];
-
-//     // Query untuk mencari user berdasarkan username
-//     $query = "SELECT username, password, role FROM user WHERE username = ?";
-//     $statement = $pdo->prepare($query);
-//     $statement->execute([$username]);
-//     $user = $statement->fetch(PDO::FETCH_ASSOC);
-
-//     // Validasi user dan password
-//     if ($user && password_verify($password, $user['password'])) {
-//         // Login berhasil
-//         if ($user['role'] === 'siswa') {
-//             header('Location: public/siswa_dashboard.php');
-//             exit();
-//         } else if ($user['role'] === 'guru') {
-//             header('Location: public/guru_dashboard.php');
-//             exit();
-//         } else {
-//             $_SESSION['login_error'] = "Invalid user role.";
-//             header("Location: User.php");
-//             exit();
-//         }
-//     } else {
-//         // Login gagal
-//         $_SESSION['login_error'] = "Invalid username or password.";
-//         header("Location: User.php");
-//         exit();
-//     }
-// }
-
 if(isset($_POST['Login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -83,6 +44,7 @@ if(isset($_POST['Login'])) {
         <!-- <input type="text" name = "role" placeholder = "role" required> -->
         <input type="text" name="password" placeholder = "password" required>
         <button type= "submit" name="Login">Login</button>
+        <a href="register.php">Daftar akun</a>
     </form>
 </body>
 </html>
